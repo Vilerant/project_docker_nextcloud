@@ -1,0 +1,26 @@
+version: '2.4'
+
+services:
+  nextcloud:
+    image: ${NCD_IMAGE_NAME}
+    ports:
+      - ${NCD_HTTP_PORT}:80
+    links:
+      - db
+    env_file:
+      - 'env/next.env'
+    volumes:
+      - /home/clem/nextcloud/mysql:/var/www/html
+    depends_on:
+      db:
+        condition: service_started
+  db:
+    image: "${DB_IMAGE_NAME}"
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    env_file:
+      - 'env/db.env'
+    volumes:
+      - /home/clem/nextcloud/nextcloud:/var/lib/mysql
+volumes:
+  nextcloud:
+  db:

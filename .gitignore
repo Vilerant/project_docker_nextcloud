@@ -1,7 +1,0 @@
-.htaccess
-.use.ini
-.env
-env/
-mysql/
-nextcoud/
-
